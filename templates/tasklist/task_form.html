@@ -7,7 +7,7 @@
   <p> Deadline must be in format: YYYY-MM-DD HH:MM:SS</p>
   <form action="" method="post" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
 
     <input type="submit" value="Submit" class="btn btn-primary">
   </form>
