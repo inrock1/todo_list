@@ -1,6 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.urls import reverse
 
 
 class Tag(models.Model):
@@ -11,10 +9,11 @@ class Tag(models.Model):
 
 
 class Task(models.Model):
-    content = models.TextField()
+    content = models.CharField(max_length=255)
     published_date = models.DateTimeField(auto_now_add=True)
-    deadline = models.DateTimeField(required=False)
+    deadline = models.DateTimeField(null=True, blank=True)
     tags = models.ManyToManyField(Tag, related_name="tasks")
+    is_done = models.BooleanField(default=False)
 
     def __str__(self):
         return self.content
