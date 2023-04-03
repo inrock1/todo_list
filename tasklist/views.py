@@ -29,7 +29,6 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy("tasklist:index")
 
 
-
 class TagListView(generic.ListView):
     model = Tag
     context_object_name = "tags_list"
