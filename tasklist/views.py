@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -54,25 +54,16 @@ class TagDeleteView(generic.DeleteView):
     success_url = reverse_lazy("tasklist:tag-list")
 
 
+def complete_task(request, pk):
+    task = get_object_or_404(Task, id=pk)
+    task.is_done = True
+    task.save()
+    return redirect('tasklist:index')
 
 
+def undo_task(request, pk):
+    task = get_object_or_404(Task, id=pk)
+    task.is_done = False
+    task.save()
+    return redirect('tasklist:index')
 
-# def index(request):
-#     """View function for the home page of the site."""
-
-    # tags = Tag.objects.count()
-    # num_cars = Car.objects.count()
-    # num_manufacturers = Tag.objects.count()
-    #
-    # num_visits = request.session.get("num_visits", 0)
-    # request.session["num_visits"] = num_visits + 1
-    #
-    # context = {
-    #     "num_drivers": num_drivers,
-    #     "num_cars": num_cars,
-    #     "num_tags": num_tags,
-    #     "num_visits": num_visits + 1,
-    # }
-
-    # return render(request, "tasklist/index.html", context=context)
-    # return render(request, "tasklist/index.html")
